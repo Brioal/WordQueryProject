@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sortStr">
+        <item>时间降序</item>
+        <item>时间升序</item>
+        <item>查询次数降序</item>
+        <item>查询次数升序</item>
+        <item>首字母升序</item>
+    </string-array>
+</resources>
