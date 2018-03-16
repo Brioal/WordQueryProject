@@ -358,7 +358,7 @@ public class QueryModel implements QueryContract.Model {
                     default:
                         sortStr = " order by -time";
                 }
-                String sql = "select * from word" + sortStr + " limit '" + index + "' , '15' ";
+                String sql = "select * from word" + sortStr ;
                 Cursor cursor = database.rawQuery(sql, null);
                 List<WordBean> result = new ArrayList<>();
                 while (cursor.moveToNext()) {
