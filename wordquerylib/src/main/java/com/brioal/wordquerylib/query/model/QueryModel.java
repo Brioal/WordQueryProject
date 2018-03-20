@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.regex.Pattern;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -259,7 +260,8 @@ public class QueryModel implements QueryContract.Model {
     @Override
     public void trans(String word, OnDataLoadListener<WordBean> loadListener) {
         int type = 0;
-        boolean en = word.matches("[a-zA-Z\\s]+");
+        Pattern pattern = Pattern.compile("[a-zA-Z]");
+        boolean en = pattern.matcher(word).find();
         if (en) {
             type = 0;
             boolean sentense = word.contains(" ");

@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="输入要查询的单词"
-        android:text="this is my world"/>
+        android:text="Hangzhou is rapidly emerging as the most attractive destination for talents who have left China's first-tier cities, a new report said last Tuesday.
+"/>
 
     <Button
         android:id="@+id/btn_query"
