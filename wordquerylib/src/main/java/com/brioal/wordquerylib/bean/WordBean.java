@@ -141,23 +141,4 @@ public class WordBean implements Serializable {
         return this;
     }
 
-    /**
-     * 打印当前的参数
-     cn;
-     */
-    public void log() {
-        Logger.e("----------------------------------");
-        Logger.e("单词:"+key);
-        Logger.e("翻译:"+tran);
-        Logger.e("音节:"+pron);
-        Logger.e("发音:"+getPronUrl());
-        Logger.e("词组:"+phrase);
-        Logger.e("近义词:"+similar);
-        Logger.e("同根词:"+root);
-        Logger.e("例句:"+sentence);
-        Logger.e("时间:"+time);
-        Logger.e("次数:"+count);
-        Logger.e("中文?:"+cn);
-        Logger.e("----------------------------------");
-    }
 }

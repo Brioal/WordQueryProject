@@ -33,7 +33,7 @@ public class QueryPresenter implements QueryContract.Presenter {
                 mView.showLoading();
             }
         });
-        mModel.transLocal(mView.getWord(), new OnDataLoadListener<WordBean>() {
+        mModel.trans(mView.getWord(), new OnDataLoadListener<WordBean>() {
             @Override
             public void success(final WordBean bean) {
                 mHandler.post(new Runnable() {
@@ -65,62 +65,6 @@ public class QueryPresenter implements QueryContract.Presenter {
                                 mView.showLoadFailed(errorMsg);
                             }
                         });
-                    }
-                });
-            }
-        });
-    }
-
-    @Override
-    public void wordList() {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                mView.showLoading();
-            }
-        });
-        mModel.queryRecord(mView.getSort(), 0, new OnDataLoadListener<List<WordBean>>() {
-            @Override
-            public void success(final List<WordBean> wordBeans) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mView.showRecord(wordBeans);
-                    }
-                });
-            }
-
-            @Override
-            public void failed(final String errorMsg) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mView.showLoadFailed(errorMsg);
-                    }
-                });
-            }
-        });
-    }
-
-    @Override
-    public void wordListNext() {
-        mModel.queryRecord(mView.getSort(), mView.getIndex(), new OnDataLoadListener<List<WordBean>>() {
-            @Override
-            public void success(final List<WordBean> wordBeans) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mView.showNextPageRecord(wordBeans);
-                    }
-                });
-            }
-
-            @Override
-            public void failed(final String errorMsg) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mView.showLoadFailed(errorMsg);
                     }
                 });
             }

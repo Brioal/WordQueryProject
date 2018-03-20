@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brioal.wordquerylib.bean.WordBean;
@@ -22,8 +23,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements QueryContract.View {
     private EditText mEtKey;
     private Button mBtnQuery;
-    private Button mBtnList;
-    private Spinner mSpinner;
+    private TextView mTvKey;
+    private TextView mTvTrans;
 
     private QueryContract.Presenter mPresenter;
 
@@ -53,62 +54,31 @@ public class MainActivity extends AppCompatActivity implements QueryContract.Vie
                 mPresenter.query();
             }
         });
-        //单词列表
-        mBtnList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.wordList();
-            }
-        });
-        //排序方式
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mSortType = position;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     private void initIDs() {
         mEtKey = findViewById(R.id.main_et_key);
         mBtnQuery = findViewById(R.id.btn_query);
-        mBtnList = findViewById(R.id.btn_list);
-        mSpinner = findViewById(R.id.main_spinner);
+        mTvKey = findViewById(R.id.main_tv_key);
+        mTvTrans = findViewById(R.id.main_tv_trans);
     }
 
     @Override
     public void showLoading() {
-        Logger.e("加载中........");
     }
 
     @Override
     public void showLoadDone(WordBean bean) {
-        Logger.e("单词查询完成........");
-        bean.log();
+        if (bean == null) {
+            return;
+        }
+        mTvKey.setText(bean.getKey());
+        mTvTrans.setText(bean.getTran());
     }
 
     @Override
     public void showLoadFailed(String errorMsg) {
         Logger.e("单词查询失败........");
-    }
-
-    @Override
-    public void showRecord(List<WordBean> list) {
-        Logger.e("单词列表大小:" + list.size());
-        for (int i = 0; i < list.size(); i++) {
-            WordBean bean = list.get(i);
-            System.out.println(bean.getKey());
-        }
-    }
-
-    @Override
-    public void showNextPageRecord(List<WordBean> list) {
-        Logger.e("下一页单词列表大小:" + list.size());
     }
 
     @Override
@@ -121,13 +91,4 @@ public class MainActivity extends AppCompatActivity implements QueryContract.Vie
         return MainActivity.this;
     }
 
-    @Override
-    public int getSort() {
-        return mSortType;
-    }
-
-    @Override
-    public int getIndex() {
-        return 0;
-    }
 }

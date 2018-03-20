@@ -16,15 +16,6 @@ import java.util.List;
 public interface QueryContract {
     interface Model {
 
-
-        /**
-         * 查询本地的单词
-         *
-         * @param word
-         * @param loadListener
-         */
-        void transLocal(String word, OnDataLoadListener<WordBean> loadListener);
-
         /**
          * 翻译网络
          *
@@ -34,19 +25,28 @@ public interface QueryContract {
         void transNet(String word, OnDataLoadListener<WordBean> loadListener);
 
         /**
-         * 保存结果到本地
+         * 翻译长句子
          *
-         * @param wordBean
+         * @param word
+         * @param loadListener
          */
-        void saveToLocal(WordBean wordBean);
+        void transLong(String word, OnDataLoadListener<WordBean> loadListener);
 
         /**
-         * 查询本地单词
+         * 翻译中文
          *
-         * @param type
-         * @param index
+         * @param word
+         * @param loadListener
          */
-        void queryRecord(int type, int index, OnDataLoadListener<List<WordBean>> loadListener);
+        void transCN(String word, OnDataLoadListener<WordBean> loadListener);
+
+        /**
+         * 翻译
+         *
+         * @param word
+         * @param loadListener
+         */
+        void trans(String word, OnDataLoadListener<WordBean> loadListener);
 
 
     }
@@ -58,52 +58,14 @@ public interface QueryContract {
 
         void showLoadFailed(String errorMsg);//显示加载失败
 
-        /**
-         * 显示本地单词记录
-         *
-         * @param list
-         */
-        void showRecord(List<WordBean> list);
-
-        /**
-         * 显示下一页的单词
-         *
-         * @param list
-         */
-        void showNextPageRecord(List<WordBean> list);
-
         String getWord();//返回搜索关键字
 
-
         Context getQueryContext();
-
-        /**
-         * 返回单词记录的排序发过誓
-         *
-         * @return
-         */
-        int getSort();
-
-        /**
-         * 返回单词记录的下标
-         *
-         * @return
-         */
-        int getIndex();
     }
 
 
     interface Presenter {
-        void query();//查询单词
-
-        /**
-         * 获取本地单词列表
-         */
-        void wordList();
-
-        /**
-         * 下一页列表
-         */
-        void wordListNext();
+        // 查询单词
+        void query();
     }
 }
