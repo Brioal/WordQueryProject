@@ -11,6 +11,7 @@ import com.brioal.wordquerylib.utils.StringUtil;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -32,8 +33,10 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -48,7 +51,7 @@ public class QueryModel implements QueryContract.Model {
     // 查询英文
     private final String URL_TRANS_EN = "http://www.youdao.com/w/eng/";
     // 查询英文句子
-    private final String URL_TRANS_LONG = "http://www.iciba.com/";
+    private final String URL_TRANS_LONG = "http://www.iciba.com/index.php";
 
 
     public QueryModel(Context context) {
@@ -116,10 +119,9 @@ public class QueryModel implements QueryContract.Model {
             @Override
             public void run() {
                 OkHttpClient client = new OkHttpClient();
-                String finalUrl = URL_TRANS_LONG + word;
+                String finalUrl = "http://www.iciba.com/index.php?a=getWordMean&c=search&list=2&word="+word+"&_=1521590990331";
                 Request request = new Request.Builder()
                         .url(finalUrl)
-                        .get()
                         .build();
                 client.newCall(request).enqueue(new Callback() {
                     @Override
@@ -160,9 +162,9 @@ public class QueryModel implements QueryContract.Model {
      */
     private WordBean getLongTrans(String word, String content) {
         try {
-            Document document = Jsoup.parse(content);
-            Element element = document.getElementsByClass("clearfix").first();
-            String trans = element.getElementsByTag("div").get(1).text();
+            JSONObject object = new JSONObject(content);
+            JSONObject baseInfo = object.getJSONObject("baesInfo");
+            String trans = baseInfo.getString("translate_result");
             WordBean wordBean = new WordBean();
             wordBean.setKey(word)
                     .setTran(trans);
